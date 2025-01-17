@@ -1,21 +1,19 @@
 // Load environment variables from .env file
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+import fs from 'fs';
+import express from 'express';
+import cors from 'cors';
+import { OpenAI } from 'openai';
+
 dotenv.config();
-
-const fs = require('fs');
-
-const express = require('express');
-const cors = require('cors');
 
 const app = express();
 const port = 3001;
 
-const OpenAI = require('openai');
-const { type } = require('os');
-const openai = new OpenAI();
+const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' })); // Adjust the limit as needed
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 
